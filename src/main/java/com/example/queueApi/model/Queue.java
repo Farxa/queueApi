@@ -1,10 +1,8 @@
 package com.example.queueApi.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Queue {
@@ -14,42 +12,42 @@ public class Queue {
     
     @Column(name = "name")
     private String name;
+    
     @Column(name = "owner")
     private String owner;
-    @Column(name = "songs")
-    private String[] songs;
-    @Column(name = "guests")
-    private String[] guests;
+    
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Song> songs = new HashSet<>();
+    
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Guest> guests = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getOwner() {
-        return owner;
-    }
-    public String[] getSongs() {
+
+    public Set<Song> getSongs() {
         return songs;
     }
-    public String[] getGuests() {
+
+    public Set<Guest> getGuests() {
         return guests;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-    public void setSongs(String[] songs) {
-        this.songs = songs;
-    }
-    public void setGuests(String[] guests) {
-        this.guests = guests;
+
+    public void addSong(Song song) {
+        songs.add(song);
+        song.setQueue(this);
     }
 
+    public void removeSong(Song song) {
+        songs.remove(song);
+        song.setQueue(null);
+    }
+
+    public void addGuest(Guest guest) {
+        guests.add(guest);
+        guest.setQueue(this);
+    }
+
+    public void removeGuest(Guest guest) {
+        guests.remove(guest);
+        guest.setQueue(null);
+    }
 }
