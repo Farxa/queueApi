@@ -1,28 +1,30 @@
 package com.example.queueApi.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                    .antMatchers("/", "/error", "/webjars/**").permitAll() // Allow access to these paths without authentication
-                    .anyRequest().authenticated() // All other paths require authentication
+                    .antMatchers("/").permitAll()
+                    .anyRequest().authenticated()
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
-                    .defaultSuccessUrl("/loginSuccess")
-                    .failureUrl("/loginFailure")
+                    .loginPage("/oauth2/authorization/spotify")
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/").permitAll()
             );
-             // TODO:  specify success and failure URLs
-
+        return http.build();
     }
 }
