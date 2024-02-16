@@ -1,11 +1,16 @@
 com/example/queueApi/repository/SongRepository.class
 com/example/queueApi/controller/QueueController.class
 com/example/queueApi/repository/GuestRepository.class
+com/example/queueApi/repository/UserRepository.class
+com/example/queueApi/service/CustomOAuth2UserService.class
+com/example/queueApi/model/User.class
 com/example/queueApi/QueueApiApp.class
 com/example/queueApi/model/Queue.class
 com/example/queueApi/service/QueueService.class
+com/example/queueApi/controller/HomeController.class
 com/example/queueApi/model/Guest.class
 com/example/queueApi/repository/QueueRepository.class
 com/example/queueApi/service/QueueServiceImpl.class
+com/example/queueApi/controller/UserController.class
 com/example/queueApi/config/SecurityConfig.class
 com/example/queueApi/model/Song.class

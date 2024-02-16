@@ -1,53 +1,53 @@
 package com.example.queueApi.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
+@Table(name = "queues")
 public class Queue {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name")
     private String name;
-    
-    @Column(name = "owner")
-    private String owner;
-    
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Song> songs = new HashSet<>();
-    
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Guest> guests = new HashSet<>();
 
+    // ManyToOne relationship with User entity
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
-    public Set<Song> getSongs() {
-        return songs;
+    // Constructors, Getters, and Setters
+
+    public Queue() {
     }
 
-    public Set<Guest> getGuests() {
-        return guests;
+    public Queue(String name, User owner) {
+        this.name = name;
+        this.owner = owner;
     }
 
-    public void addSong(Song song) {
-        songs.add(song);
-        song.setQueue(this);
+    public Long getId() {
+        return id;
     }
 
-    public void removeSong(Song song) {
-        songs.remove(song);
-        song.setQueue(null);
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void addGuest(Guest guest) {
-        guests.add(guest);
-        guest.setQueue(this);
+    public String getName() {
+        return name;
     }
 
-    public void removeGuest(Guest guest) {
-        guests.remove(guest);
-        guest.setQueue(null);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
