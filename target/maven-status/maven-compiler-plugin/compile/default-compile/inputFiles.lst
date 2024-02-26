@@ -12,5 +12,6 @@
 /Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/repository/SongRepository.java
 /Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/controller/QueueController.java
 /Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/repository/UserRepository.java
+/Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/service/UserService.java
 /Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/repository/GuestRepository.java
 /Users/rahaf/projects/queueApi/src/main/java/com/example/queueApi/repository/QueueRepository.java
